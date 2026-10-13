@@ -63,6 +63,11 @@ export interface AnalysisTimings {
 export interface AnalysisResult {
   id: string; intent: Intent; simulation: SimulationResult; risk: RiskResult;
   explanation: Explanation; durationMs: number; timings?: AnalysisTimings; degraded?: string;
+  /** Network the wallet was on when the request was made. */
+  network?: NetworkInfo;
+}
+export interface NetworkInfo {
+  chainId: number; name: string; nativeSymbol: string; explorerUrl?: string; supported: boolean;
 }
 
 export interface RevokeTransaction {

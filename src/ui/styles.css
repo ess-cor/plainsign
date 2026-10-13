@@ -115,6 +115,21 @@ button {
 .ps-body {
   padding: 20px;
 }
+.ps-network {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(131, 110, 249, 0.16);
+  color: #c9bfff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.ps-network-unknown {
+  background: rgba(255, 196, 0, 0.14);
+  color: #ffd66b;
+}
 .ps-summary {
   margin: 0 0 18px;
   font-size: 18px;

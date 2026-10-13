@@ -2,6 +2,21 @@
 
 All notable changes to PlainSign are documented here.
 
+## 0.3.0 - 2026-10-13 (Monad edition)
+
+### Added
+
+- Monad mainnet (chain 143): MON native currency, public RPCs with fallbacks and `VITE_MONAD_RPC`, MonadVision explorer links, WMON as the wrapped native token.
+- Monad canonical-contract allowlist (WMON, USDC, USDT0, bridged WETH, Permit2, Uniswap, Kuru, PancakeSwap, Seaport, Multicall3).
+- `typed_data_chain_mismatch` rule: Caution when an EIP-712 domain targets a different chain than the wallet.
+- Network badge on the verdict card and network metadata on every analysis result.
+- Monad samples in the wallet-free walkthrough (now the default network), a Monad request lab page, `npm run verify:monad`, and a Monad test suite.
+
+### Changed
+
+- Native and wrapped token wording follows the active chain (MON/WMON on Monad) instead of hardcoded ETH/WETH.
+- Simulation runs only on chains configured for it; Monad decodes and scores without a balance preview.
+
 ## 0.2.1 - 2026-10-12
 
 ### Fixed

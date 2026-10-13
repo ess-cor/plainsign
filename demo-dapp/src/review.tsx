@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { encodeFunctionData, parseEther, toHex } from "viem";
 
 import { CHAINS } from "../../src/config/chains";
+import { networkInfo } from "../../src/config/network";
 import { decodeMessage } from "../../src/decoder/message";
 import { decodeTransaction, type TransactionLike } from "../../src/decoder/tx";
 import { decodeTypedData } from "../../src/decoder/typedData";
@@ -26,13 +27,17 @@ const samples = [
   { id: "mint", title: "Free Mint", detail: "A collection permission hidden behind a mint button" },
   { id: "permit", title: "Verify wallet", detail: "An unlimited Permit2 signature with a long expiry" },
   { id: "login", title: "Sign in", detail: "A readable login message" },
-  { id: "wrap", title: "Wrap ETH", detail: "Exchange 0.01 ETH for WETH" },
-  { id: "fake-wrap", title: "Imitation WETH", detail: "The same wrap call sent to a different contract" },
+  { id: "wrap", title: "Wrap {NATIVE}", detail: "Exchange 0.01 {NATIVE} for {WRAPPED}" },
+  { id: "fake-wrap", title: "Imitation {WRAPPED}", detail: "The same wrap call sent to a different contract" },
+  { id: "wrong-chain", title: "Wrong-network permit", detail: "A Permit2 signature for another chain than your wallet's" },
   { id: "unknown", title: "Unknown request", detail: "A function the decoder cannot recognize" },
 ] as const;
 type SampleId = typeof samples[number]["id"];
+type SampleChain = 143 | 1 | 11155111;
+const label = (text: string, chainId: SampleChain) =>
+  text.replaceAll("{NATIVE}", CHAINS[chainId].nativeCurrency.symbol).replaceAll("{WRAPPED}", CHAINS[chainId].wrappedSymbol);
 
-function sampleResult(id: SampleId, chainId: 1 | 11155111) {
+function sampleResult(id: SampleId, chainId: SampleChain) {
   const config = CHAINS[chainId];
   const now = Math.floor(Date.now() / 1000);
   let intent: Intent;
@@ -45,9 +50,10 @@ function sampleResult(id: SampleId, chainId: 1 | 11155111) {
       `preview.plainsign.example wants you to sign in with your Ethereum account:\n${account}\n\nSign in to the sample.\n\nURI: https://preview.plainsign.example\nVersion: 1\nChain ID: ${chainId}\nNonce: abc12345\nIssued At: ${new Date().toISOString()}`,
     ), account] };
     intent = decodeMessage(request.request.params, "personal_sign");
-  } else if (id === "permit") {
+  } else if (id === "permit" || id === "wrong-chain") {
+    const domainChain = id === "wrong-chain" ? (chainId === 1 ? 143 : 1) : chainId;
     request.request = { method: "eth_signTypedData_v4", params: [account, {
-      primaryType: "PermitSingle", domain: { name: "Permit2", chainId, verifyingContract: permit2 },
+      primaryType: "PermitSingle", domain: { name: "Permit2", chainId: domainChain, verifyingContract: permit2 },
       types: {
         EIP712Domain: [{ name: "name", type: "string" }, { name: "chainId", type: "uint256" }, { name: "verifyingContract", type: "address" }],
         PermitDetails: [{ name: "token", type: "address" }, { name: "amount", type: "uint160" }, { name: "expiration", type: "uint48" }, { name: "nonce", type: "uint48" }],
@@ -74,29 +80,30 @@ function sampleResult(id: SampleId, chainId: 1 | 11155111) {
   const result: AnalysisResult = {
     id: request.id, intent, simulation, risk,
     explanation: explain(intent, simulation, risk, addresses, { chainId, now }), durationMs: 0,
+    network: networkInfo(chainId),
   };
   return { request, result, revoke: buildRevokeTransaction(request, intent) };
 }
 
 function Review() {
   const [sample, setSample] = useState<SampleId>("mint");
-  const [chain, setChain] = useState<1 | 11155111>(1);
+  const [chain, setChain] = useState<SampleChain>(143);
   const [outcome, setOutcome] = useState("");
   const { request, result, revoke } = useMemo(() => sampleResult(sample, chain), [sample, chain]);
   return <main className="review-shell">
     <header className="review-header"><a href="review.html">PlainSign</a><nav aria-label="Project resources">
       <a href="product-demo.html">Watch the demo</a>
       <a href="plainsign-pitch.pdf">Pitch deck</a>
-      <a href="https://github.com/adib-cyber007/plainsign">View the code</a>
+      <a href="https://github.com/ess-cor/plainsign">View the code</a>
     </nav></header>
     <div className="review-intro"><h1>See what you’re<br />really signing.</h1><p>Try a request. Read the consequence.<br />Decide before your wallet opens.</p></div>
     <p className="preview-notice">Sample preview. No wallet, extension, or funds required. Chain metadata is simulated. Verdicts use the same decoder and open rules as the extension.</p>
-    <p className="review-guide">Start with <strong>Free Mint</strong> and choose Reject. Compare it with <strong>Sign in</strong>, then compare <strong>Wrap ETH</strong> with <strong>Imitation WETH</strong>: the destination matters as much as the function name.</p>
+    <p className="review-guide">Start with <strong>Free Mint</strong> and choose Reject. Compare it with <strong>Sign in</strong>, then compare <strong>Wrap MON</strong> with <strong>Imitation WMON</strong>: the destination matters as much as the function name. On Monad, contract labels come from Monad's canonical contract list (WMON, USDC, Permit2, Uniswap, Kuru, PancakeSwap).</p>
     <div className="review-layout">
       <section className="sample-picker" aria-label="Sample wallet requests">
         <label htmlFor="sample-chain">Network</label>
-        <select id="sample-chain" value={chain} onChange={(event) => { setChain(Number(event.target.value) as 1 | 11155111); setOutcome(""); }}><option value={1}>Ethereum mainnet (sample)</option><option value={11155111}>Sepolia (sample)</option></select>
-        {samples.map((item) => <button key={item.id} type="button" aria-pressed={sample === item.id} onClick={() => { setSample(item.id); setOutcome(""); }}><strong>{item.title}</strong><span>{item.detail}</span></button>)}
+        <select id="sample-chain" value={chain} onChange={(event) => { setChain(Number(event.target.value) as SampleChain); setOutcome(""); }}><option value={143}>Monad mainnet (sample)</option><option value={1}>Ethereum mainnet (sample)</option><option value={11155111}>Sepolia (sample)</option></select>
+        {samples.map((item) => <button key={item.id} type="button" aria-pressed={sample === item.id} onClick={() => { setSample(item.id); setOutcome(""); }}><strong>{label(item.title, chain)}</strong><span>{label(item.detail, chain)}</span></button>)}
       </section>
       <section className="preview-result" aria-label="Sample analysis" aria-live="polite">
         <VerdictCard key={`${sample}-${chain}`} result={result} canRevoke={Boolean(revoke)}
@@ -108,11 +115,11 @@ function Review() {
           <summary>Inspect this sample request</summary>
           <p>This is the input to the decoder. Address verification above is simulated; no chain service is queried.</p>
           <pre aria-label="Sample request JSON">{JSON.stringify({ origin: request.origin, chainId: request.chainId, ...request.request }, null, 2)}</pre>
-          <a href="https://github.com/adib-cyber007/plainsign/blob/master/src/risk/rules.json">Read the risk rules</a>
+          <a href="https://github.com/ess-cor/plainsign/blob/master/src/risk/rules.json">Read the risk rules</a>
         </details>
       </section>
     </div>
-    <footer className="review-footer"><p>Safe means no major warning signs found in this request. These checks are heuristics, not a security guarantee.</p><a href="./">Try the extension with the Sepolia demo</a><a href="https://github.com/adib-cyber007/plainsign/releases/latest">Download the extension</a></footer>
+    <footer className="review-footer"><p>Safe means no major warning signs found in this request. These checks are heuristics, not a security guarantee.</p><a href="./">Sepolia test dApp</a><a href="plainsign-extension.zip">Download the extension (Chrome, unpacked)</a><a href="monad-mainnet-check.json">Live Monad mainnet check</a></footer>
   </main>;
 }
 

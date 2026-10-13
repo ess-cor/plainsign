@@ -32,6 +32,8 @@
       "title": "Transaction would fail", "detail": "Simulation reverted; you'd likely just lose gas." },
     { "id": "unknown_function", "signal": "isUnknownFunction", "weight": 20, "severity": "warn", "forceMin": "caution",
       "title": "Unrecognized action", "detail": "PlainSign can't tell exactly what this function does." },
+    { "id": "typed_data_chain_mismatch", "signal": "isTypedDataChainMismatch", "weight": 35, "severity": "warn", "forceMin": "caution",
+      "title": "Signature is for a different network", "detail": "This signature is valid on another chain than the one your wallet is on. Shared contract addresses (like Permit2) can make it look familiar." },
     { "id": "allowlisted_target", "signal": "isTargetAllowlistedAndDomainOk", "weight": -20, "severity": "info",
       "title": "Known protocol on its official site", "detail": "Target is a recognized contract and this website is expected." }
   ]

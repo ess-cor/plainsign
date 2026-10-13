@@ -1,10 +1,13 @@
 # PlainSign
 
-**Understand a wallet request before you sign it.**
+**Understand a wallet request before you sign it. Now on Monad mainnet (chain 143).**
 
-[Try without a wallet](https://adib-cyber007.github.io/plainsign/review.html) · [90-second judge guide](docs/JUDGE_GUIDE.md) · [Download latest release](https://github.com/adib-cyber007/plainsign/releases/latest)
-
-[Submitted pitch (1:45)](https://youtu.be/FY_4VIk0aSY) · [Updated 0.2.1 demo (2:41)](https://adib-cyber007.github.io/plainsign/product-demo.html) · [Pitch deck](https://adib-cyber007.github.io/plainsign/plainsign-pitch.pdf) · [Sepolia training demo](https://adib-cyber007.github.io/plainsign/)
+> **Monad Metropolis entry** (Trust, Identity & AI Infrastructure, solo): read [MONAD.md](MONAD.md).
+> [Try it on Monad without a wallet](https://ess-cor.github.io/plainsign/review.html) · [Monad request lab](https://ess-cor.github.io/plainsign/monad-lab.html) · [Download the extension](https://ess-cor.github.io/plainsign/plainsign-extension.zip) · [Live Monad mainnet check](https://ess-cor.github.io/plainsign/monad-mainnet-check.json)
+>
+> Monad support (0.3.0): MON native currency, Monad RPC and MonadVision links, WMON-aware wrap explanations, Monad's canonical contracts (WMON, USDC, USDT0, Permit2, Uniswap, Kuru, PancakeSwap, Seaport, Multicall3), live Monad address checks, a network badge on every verdict, and a new rule that flags EIP-712 signatures meant for a different chain than your wallet's. Run `npm run verify:monad` for read-only evidence from Monad mainnet.
+>
+> This repository is the Monad edition. The earlier Colosseum submission lives unchanged at `adib-cyber007/plainsign`; the history below describes that work.
 
 ## The 60-second pitch
 

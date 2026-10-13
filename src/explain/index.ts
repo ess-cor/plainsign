@@ -1,5 +1,6 @@
 import { formatEther, formatUnits, type Address } from "viem";
 
+import { chainName, nativeSymbol, wrappedSymbol } from "../config/chains";
 import { shortAddr } from "../lib/shortAddr";
 import type {
   AddressInfo,
@@ -28,6 +29,7 @@ export function explain(
     simulation,
     addresses,
     options.now ?? unixNow(),
+    options.chainId,
   );
   const template = templates[intent.kind];
   const beginner = [
@@ -53,6 +55,7 @@ function templateContext(
   simulation: SimulationResult,
   addresses: Record<string, AddressInfo>,
   now: number,
+  chainId?: number,
 ): TemplateContext {
   const party =
     intent.spender ?? intent.operator ?? intent.recipient ?? intent.to;
@@ -65,6 +68,8 @@ function templateContext(
       intent.value === undefined
         ? "an unknown amount"
         : formatEther(intent.value),
+    native: nativeSymbol(chainId),
+    wrapped: wrappedSymbol(chainId),
   };
 }
 
@@ -130,6 +135,16 @@ function technicalDetails(
     `Primary type: ${intent.primaryType ?? "n/a"}`,
     `Chain ID: ${chainId ?? intent.domain?.chainId ?? "unknown"}`,
   ];
+  if (chainId !== undefined) details.push(`Network: ${chainName(chainId)}`);
+  if (
+    intent.domain?.chainId !== undefined &&
+    chainId !== undefined &&
+    intent.domain.chainId !== chainId
+  ) {
+    details.push(
+      `Signature domain chain: ${intent.domain.chainId} (${chainName(intent.domain.chainId)})`,
+    );
+  }
   for (const [label, value] of [
     ["To", intent.to],
     ["Token", intent.token],

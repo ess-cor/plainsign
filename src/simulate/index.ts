@@ -1,8 +1,7 @@
 import type { AnalysisRequest, SimulationResult } from "../types";
+import { getChainConfig } from "../config/chains";
 import { loadSettings } from "../config/settings";
 import { simulateWithAlchemy } from "./alchemy";
-
-const SEPOLIA_CHAIN_ID = 11_155_111;
 
 export interface SimulateDeps {
   apiKey?: string;
@@ -17,7 +16,7 @@ export async function simulate(
   const apiKey = deps.apiKey ?? import.meta.env?.VITE_ALCHEMY_KEY?.trim();
   if (
     request.request.method !== "eth_sendTransaction" ||
-    request.chainId !== SEPOLIA_CHAIN_ID ||
+    getChainConfig(request.chainId)?.simulation !== true ||
     !apiKey
   ) {
     return { ok: false, provider: "none", changes: [] };

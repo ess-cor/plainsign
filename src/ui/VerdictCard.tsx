@@ -63,6 +63,16 @@ export function VerdictCard({
       </header>
 
       <div className="ps-body">
+        {result.network && (
+          <p
+            className={`ps-network${result.network.supported ? "" : " ps-network-unknown"}`}
+            data-chain-id={result.network.chainId}
+          >
+            {result.network.supported
+              ? `${result.network.name} · chain ${result.network.chainId} · ${result.network.nativeSymbol}`
+              : `Unrecognized network · chain ${result.network.chainId}`}
+          </p>
+        )}
         <p className="ps-summary">{result.explanation.summary}</p>
         {result.explanation.source === "llm" && (
           <p className="ps-explanation-source">

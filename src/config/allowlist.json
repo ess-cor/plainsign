@@ -1,15 +1,32 @@
 {
   "11155111": {
-    "0x000000000022d473030f116ddee9f6b43ac78ba3": { "protocol": "Uniswap Permit2", "domains": ["app.uniswap.org","uniswap.org"] },
-    "0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad": { "protocol": "Uniswap Universal Router", "domains": ["app.uniswap.org","uniswap.org"] },
-    "0xfff9976782d46cc05630d1f6ebab18b2324d6b14": { "protocol": "Wrapped Ether (WETH)", "domains": ["*"] },
-    "0x0000000000000068f116a894984e2db1123eb395": { "protocol": "OpenSea Seaport 1.6", "domains": ["opensea.io","testnets.opensea.io"] }
+    "0x000000000022d473030f116ddee9f6b43ac78ba3": {"protocol": "Uniswap Permit2", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad": {"protocol": "Uniswap Universal Router", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0xfff9976782d46cc05630d1f6ebab18b2324d6b14": {"protocol": "Wrapped Ether (WETH)", "domains": ["*"]},
+    "0x0000000000000068f116a894984e2db1123eb395": {"protocol": "OpenSea Seaport 1.6", "domains": ["opensea.io", "testnets.opensea.io"]}
   },
   "1": {
-    "0x000000000022d473030f116ddee9f6b43ac78ba3": { "protocol": "Uniswap Permit2", "domains": ["app.uniswap.org","uniswap.org"] },
-    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": { "protocol": "Wrapped Ether (WETH)", "domains": ["*"] },
-    "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": { "protocol": "USD Coin (USDC)", "domains": ["*"] },
-    "0x0000000000000068f116a894984e2db1123eb395": { "protocol": "OpenSea Seaport 1.6", "domains": ["opensea.io"] }
+    "0x000000000022d473030f116ddee9f6b43ac78ba3": {"protocol": "Uniswap Permit2", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {"protocol": "Wrapped Ether (WETH)", "domains": ["*"]},
+    "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {"protocol": "USD Coin (USDC)", "domains": ["*"]},
+    "0x0000000000000068f116a894984e2db1123eb395": {"protocol": "OpenSea Seaport 1.6", "domains": ["opensea.io"]}
+  },
+  "143": {
+    "0x000000000022d473030f116ddee9f6b43ac78ba3": {"protocol": "Uniswap Permit2", "domains": ["app.uniswap.org", "uniswap.org", "kuru.io", "www.kuru.io", "pancakeswap.finance"]},
+    "0x3bd359c1119da7da1d913d1c4d2b7c461115433a": {"protocol": "Wrapped MON (WMON)", "domains": ["*"]},
+    "0x754704bc059f8c67012fed69bc8a327a5aafb603": {"protocol": "USD Coin (USDC, Circle native)", "domains": ["*"]},
+    "0xe7cd86e13ac4309349f30b3435a9d337750fc82d": {"protocol": "Tether USDT0 (LayerZero OFT)", "domains": ["*"]},
+    "0xee8c0e9f1bffb4eb878d8f15f368a02a35481242": {"protocol": "Wrapped Ether (WETH, bridged)", "domains": ["*"]},
+    "0x0d97dc33264bfc1c226207428a79b26757fb9dc3": {"protocol": "Uniswap Universal Router", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0xfdf682f51fe81aa4898f0ae2163d8a55c127fbc7": {"protocol": "Uniswap Universal Router 2.1.1", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0xa6ce4f10d83dbddac17e68e1837ca9ce6a1b596e": {"protocol": "Uniswap Universal Router 2.1.2", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0xfe31f71c1b106eac32f1a19239c9a9a72ddfb900": {"protocol": "Uniswap SwapRouter02", "domains": ["app.uniswap.org", "uniswap.org"]},
+    "0x0000000000000068f116a894984e2db1123eb395": {"protocol": "OpenSea Seaport 1.6", "domains": ["opensea.io"]},
+    "0xd651346d7c789536ebf06dc72ae3c8502cd695cc": {"protocol": "Kuru DEX Router", "domains": ["kuru.io", "www.kuru.io"]},
+    "0x465d06d4521ae9ce724e0c182daad5d8a2ff7040": {"protocol": "Kuru Flow Router", "domains": ["kuru.io", "www.kuru.io"]},
+    "0x0d3a1be29e9ded63c7a5678b31e847d68f71ffa2": {"protocol": "Kuru Flow Router V2", "domains": ["kuru.io", "www.kuru.io"]},
+    "0x21114915ac6d5a2e156931e20b20b038ded0be7c": {"protocol": "PancakeSwap Smart Router", "domains": ["pancakeswap.finance"]},
+    "0xca11bde05977b3631167028862be2a173976ca11": {"protocol": "Multicall3", "domains": ["*"]}
   },
   "31337": {}
 }

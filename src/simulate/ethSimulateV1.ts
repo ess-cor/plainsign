@@ -7,13 +7,13 @@ import {
   type Address,
 } from "viem";
 
+import { getChainConfig, nativeSymbol } from "../config/chains";
 import type { AnalysisRequest, AssetChange, SimulationResult } from "../types";
 import type { SimulationTransaction } from "./defaults";
 
 const TRANSFER_TOPIC = keccak256(stringToHex("Transfer(address,address,uint256)"));
 const DEPOSIT_TOPIC = keccak256(stringToHex("Deposit(address,uint256)"));
 const WITHDRAWAL_TOPIC = keccak256(stringToHex("Withdrawal(address,uint256)"));
-const SEPOLIA_WETH = "0xfff9976782d46cc05630d1f6ebab18b2324d6b14";
 
 interface SimulatedLog {
   address?: unknown;
@@ -46,7 +46,7 @@ export function simulationFromEthSimulateV1(
   }
 
   const changes: AssetChange[] = [];
-  const nativeChange = topLevelNativeChange(request.from, transaction);
+  const nativeChange = topLevelNativeChange(request.from, transaction, request.chainId);
   if (nativeChange) changes.push(nativeChange);
 
   for (const call of calls) {
@@ -63,7 +63,9 @@ export function simulationFromEthSimulateV1(
 function topLevelNativeChange(
   account: Address,
   transaction: SimulationTransaction,
+  chainId: number,
 ): AssetChange | undefined {
+  const symbol = nativeSymbol(chainId);
   const magnitude = integerValue(transaction.value);
   if (magnitude === undefined || magnitude === 0n) return undefined;
   const owner = account.toLowerCase();
@@ -75,9 +77,9 @@ function topLevelNativeChange(
   const delta = outgoing ? -magnitude : magnitude;
   return {
     kind: "native",
-    symbol: "ETH",
+    symbol,
     delta,
-    formatted: formatDelta(delta, 18, "ETH"),
+    formatted: formatDelta(delta, 18, symbol),
   };
 }
 
@@ -100,10 +102,10 @@ function logChange(
   const token = getAddress(log.address);
   const topic = log.topics[0].toLowerCase();
   if (isKnownWeth(token, chainId) && topic === DEPOSIT_TOPIC.toLowerCase()) {
-    return wethLifecycleChange(log, account, token, false);
+    return wethLifecycleChange(log, account, token, false, chainId);
   }
   if (isKnownWeth(token, chainId) && topic === WITHDRAWAL_TOPIC.toLowerCase()) {
-    return wethLifecycleChange(log, account, token, true);
+    return wethLifecycleChange(log, account, token, true, chainId);
   }
   if (topic === TRANSFER_TOPIC.toLowerCase()) {
     return transferChange(log, account, token, chainId);
@@ -116,6 +118,7 @@ function wethLifecycleChange(
   account: Address,
   token: Address,
   outgoing: boolean,
+  chainId: number,
 ): AssetChange | undefined {
   const owner = topicAddress(log.topics, 1);
   const magnitude = integerValue(log.data);
@@ -124,10 +127,10 @@ function wethLifecycleChange(
   return {
     kind: "erc20",
     token,
-    symbol: "WETH",
+    symbol: getChainConfig(chainId)?.wrappedSymbol ?? "WETH",
     decimals: 18,
     delta,
-    formatted: formatDelta(delta, 18, "WETH"),
+    formatted: formatDelta(delta, 18, getChainConfig(chainId)?.wrappedSymbol ?? "WETH"),
   };
 }
 
@@ -164,10 +167,10 @@ function transferChange(
   return {
     kind: "erc20",
     token,
-    symbol: "WETH",
+    symbol: getChainConfig(chainId)?.wrappedSymbol ?? "WETH",
     decimals: 18,
     delta,
-    formatted: formatDelta(delta, 18, "WETH"),
+    formatted: formatDelta(delta, 18, getChainConfig(chainId)?.wrappedSymbol ?? "WETH"),
   };
 }
 
@@ -186,7 +189,7 @@ function mergeChanges(changes: AssetChange[]): AssetChange[] {
       delta,
       formatted:
         current.kind === "native"
-          ? formatDelta(delta, 18, "ETH")
+          ? formatDelta(delta, 18, current.symbol ?? "ETH")
           : current.kind === "erc20" && current.decimals !== undefined
             ? formatDelta(delta, current.decimals, current.symbol ?? "TOKEN")
             : current.formatted,
@@ -224,7 +227,8 @@ function normalizeAddress(value: unknown): string | undefined {
 }
 
 function isKnownWeth(token: Address, chainId: number): boolean {
-  return chainId === 11_155_111 && token.toLowerCase() === SEPOLIA_WETH;
+  const config = getChainConfig(chainId);
+  return config?.simulation === true && token.toLowerCase() === config.wethAddress.toLowerCase();
 }
 
 function trimFraction(value: string): string {

@@ -6,6 +6,10 @@ export interface TemplateContext {
   deadline: string;
   tokenIds: string;
   value: string;
+  /** Native gas token of the request's network (ETH, MON). */
+  native: string;
+  /** Wrapped form of the native token (WETH, WMON). */
+  wrapped: string;
 }
 
 export interface ExplanationTemplate {
@@ -83,25 +87,25 @@ export const templates: Record<IntentKind, ExplanationTemplate> = {
   seaport_order: simple(
     (i, c) =>
       i.considerationNearZero
-        ? `This lists your NFT #${c.tokenIds} for sale for 0 ETH — anyone can take it for free.`
+        ? `This lists your NFT #${c.tokenIds} for sale for 0 ${c.native} — anyone can take it for free.`
         : `This signs a marketplace listing for NFT ${c.tokenIds}.`,
     (_, c) => `The listing is valid ${c.deadline}.`,
   ),
   native_transfer: simple(
-    (_, c) => `You'll send ${c.value} ETH to ${c.party}.`,
-    () => "The ETH leaves your wallet when the transaction completes.",
+    (_, c) => `You'll send ${c.value} ${c.native} to ${c.party}.`,
+    (_, c) => `The ${c.native} leaves your wallet when the transaction completes.`,
   ),
   contract_deploy: simple(
     () => "You'll create a new smart contract.",
     () => "Creating a contract costs network fees and runs its setup code.",
   ),
   weth_wrap: simple(
-    (_, c) => `You'll turn ${c.value} ETH into the same amount of WETH.`,
+    (_, c) => `You'll turn ${c.value} ${c.native} into the same amount of ${c.wrapped}.`,
     () => "Your value stays yours but changes into a token form.",
   ),
   weth_unwrap: simple(
-    (_, c) => `You'll turn ${c.amount} WETH into ETH.`,
-    () => "Your value stays yours but changes back into native ETH.",
+    (_, c) => `You'll turn ${c.amount} ${c.wrapped} into ${c.native}.`,
+    (_, c) => `Your value stays yours but changes back into native ${c.native}.`,
   ),
   swap: simple(
     (_, c) => `You'll exchange one asset for another ${c.deadline}.`,

@@ -3,6 +3,7 @@ import { createPublicClient, defineChain, fallback, http } from "viem";
 import {
   CHAINS,
   MAINNET_CHAIN_ID,
+  MONAD_CHAIN_ID,
   SEPOLIA_CHAIN_ID,
   type SupportedChainId,
 } from "./chains";
@@ -14,7 +15,9 @@ export function createPlainSignPublicClient(chainId: SupportedChainId) {
       ? import.meta.env?.VITE_SEPOLIA_RPC?.trim()
       : chainId === MAINNET_CHAIN_ID
         ? import.meta.env?.VITE_MAINNET_RPC?.trim()
-        : undefined;
+        : chainId === MONAD_CHAIN_ID
+          ? import.meta.env?.VITE_MONAD_RPC?.trim()
+          : undefined;
   const rpcUrls = configuredRpc
     ? [configuredRpc, ...config.rpcUrls]
     : [...config.rpcUrls];
@@ -22,11 +25,7 @@ export function createPlainSignPublicClient(chainId: SupportedChainId) {
   const chain = defineChain({
     id: config.id,
     name: config.name,
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-    },
+    nativeCurrency: config.nativeCurrency,
     rpcUrls: {
       default: { http: rpcUrls },
     },

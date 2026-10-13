@@ -127,7 +127,7 @@ const moreActions: DemoAction[] = [
 ];
 
 const releaseZipUrl =
-  "https://github.com/adib-cyber007/plainsign/releases/latest";
+  "https://ess-cor.github.io/plainsign/plainsign-extension.zip";
 
 export function App() {
   const { address, chainId, isConnected } = useAccount();

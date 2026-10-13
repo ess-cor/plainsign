@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PlainSign | Monad request lab</title>
+    <link rel="icon" href="./icon/128.png" />
+    <style>
+      :root { color-scheme: dark; font-family: Inter, "Segoe UI", system-ui, sans-serif; }
+      body { margin: 0; background: #0a0e17; color: #e8ecf4; }
+      main { max-width: 980px; margin: 0 auto; padding: 40px 28px 64px; }
+      header { display: flex; justify-content: space-between; align-items: center; }
+      header a { color: #c9b8ff; }
+      .brand { font-weight: 700; font-size: 22px; color: #fff; text-decoration: none; }
+      h1 { font-size: 44px; letter-spacing: -0.03em; margin: 36px 0 8px; }
+      .lede { color: #aab3c5; font-size: 18px; max-width: 760px; line-height: 1.5; }
+      .notice { border-left: 3px solid #836ef9; padding: 8px 14px; color: #c6cde0; background: #131a2a; border-radius: 4px; }
+      .status { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
+      .pill { background: #1a2236; border: 1px solid #2c3754; padding: 8px 14px; border-radius: 999px; font-size: 14px; }
+      .pill b { color: #b9a8ff; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+      button.req { text-align: left; background: #131a2a; color: inherit; border: 1px solid #2c3754; border-radius: 12px; padding: 16px 18px; cursor: pointer; font: inherit; }
+      button.req:hover { border-color: #836ef9; }
+      button.req strong { display: block; font-size: 17px; margin-bottom: 4px; }
+      button.req span { color: #9aa4ba; font-size: 14px; }
+      .connect { background: #836ef9; color: #fff; border: 0; border-radius: 10px; padding: 12px 18px; font: inherit; font-weight: 600; cursor: pointer; }
+      #log { margin-top: 24px; background: #070a11; border: 1px solid #1f2840; border-radius: 10px; padding: 14px; font: 13px/1.5 ui-monospace, monospace; color: #b8c2d8; min-height: 60px; white-space: pre-wrap; }
+      code { color: #c9b8ff; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header><a class="brand" href="./review.html">PlainSign</a><nav><a href="https://github.com/ess-cor/plainsign">Source code</a></nav></header>
+      <h1>Monad request lab</h1>
+      <p class="lede">Real wallet requests against real Monad mainnet contracts (chain 143). With the PlainSign extension installed, each button is paused before your wallet opens and explained in plain English.</p>
+      <p class="notice">Use a throwaway wallet. Every risky request here points at the burn address <code>0x…dEaD</code>, so nobody can use the permission, but the safest habit is the one PlainSign teaches: read the verdict, then Reject.</p>
+      <div class="status">
+        <span class="pill">Wallet: <b id="acct">not connected</b></span>
+        <span class="pill">Network: <b id="chain">unknown</b></span>
+        <span class="pill">PlainSign: <b id="ps">checking…</b></span>
+      </div>
+      <p><button class="connect" id="connect" type="button">Connect wallet</button> <button class="connect" id="switch" type="button">Switch to Monad</button></p>
+      <div class="grid">
+        <button class="req" data-req="wrap" type="button"><strong>Wrap 0.01 MON</strong><span>deposit() on the canonical WMON contract</span></button>
+        <button class="req" data-req="approve" type="button"><strong>Unlimited USDC approval</strong><span>approve(max) on Monad USDC to an address with no code</span></button>
+        <button class="req" data-req="permit2" type="button"><strong>“Verify wallet” signature</strong><span>Permit2 PermitSingle on Monad, unlimited, 10-year expiry</span></button>
+        <button class="req" data-req="wrongchain" type="button"><strong>Wrong-network permit</strong><span>Permit2 domain for Ethereum (chain 1) while you are on Monad</span></button>
+        <button class="req" data-req="login" type="button"><strong>Sign in with Ethereum</strong><span>A readable SIWE login message for chain 143</span></button>
+        <button class="req" data-req="hash" type="button"><strong>Blind hash signature</strong><span>personal_sign of an opaque 32-byte hash</span></button>
+      </div>
+      <div id="log" role="status">Results appear here.</div>
+    </main>
+    <script>
+      const MONAD = "0x8f";
+      const WMON = "0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A";
+      const USDC = "0x754704Bc059F8C67012fEd69BC8A327a5aafb603";
+      const PERMIT2 = "0x000000000022D473030F116dDEE9F6B43aC78BA3";
+      const DEAD = "0x000000000000000000000000000000000000dEaD";
+      const MAX = "f".repeat(64);
+      const $ = (id) => document.getElementById(id);
+      const log = (line) => { $("log").textContent = `${new Date().toLocaleTimeString()}  ${line}\n` + $("log").textContent.replace("Results appear here.", ""); };
+      const eth = () => window.ethereum;
+      let account;
+
+      function refresh() {
+        $("ps").textContent = window.__plainsign?.wrapped ? "active" : (eth() ? "not detected" : "no wallet");
+      }
+      setInterval(refresh, 1000);
+
+      async function connect() {
+        if (!eth()) return log("No EIP-1193 wallet found.");
+        [account] = await eth().request({ method: "eth_requestAccounts" });
+        $("acct").textContent = `${account.slice(0, 6)}…${account.slice(-4)}`;
+        const chain = await eth().request({ method: "eth_chainId" });
+        $("chain").textContent = Number(chain) === 143 ? "Monad mainnet (143)" : `chain ${Number(chain)}`;
+      }
+      async function switchToMonad() {
+        try {
+          await eth().request({ method: "wallet_switchEthereumChain", params: [{ chainId: MONAD }] });
+        } catch (error) {
+          if (error?.code === 4902) {
+            await eth().request({ method: "wallet_addEthereumChain", params: [{ chainId: MONAD, chainName: "Monad Mainnet", nativeCurrency: { name: "Monad", symbol: "MON", decimals: 18 }, rpcUrls: ["https://rpc.monad.xyz"], blockExplorerUrls: ["https://monadvision.com"] }] });
+          } else throw error;
+        }
+        await connect();
+      }
+      const permit = (chainId) => JSON.stringify({
+        primaryType: "PermitSingle",
+        domain: { name: "Permit2", chainId, verifyingContract: PERMIT2 },
+        types: {
+          EIP712Domain: [{ name: "name", type: "string" }, { name: "chainId", type: "uint256" }, { name: "verifyingContract", type: "address" }],
+          PermitSingle: [{ name: "details", type: "PermitDetails" }, { name: "spender", type: "address" }, { name: "sigDeadline", type: "uint256" }],
+          PermitDetails: [{ name: "token", type: "address" }, { name: "amount", type: "uint160" }, { name: "expiration", type: "uint48" }, { name: "nonce", type: "uint48" }],
+        },
+        message: { details: { token: USDC, amount: "1461501637330902918203684832716283019655932542975", expiration: Math.floor(Date.now() / 1000) + 315360000, nonce: 0 }, spender: DEAD, sigDeadline: Math.floor(Date.now() / 1000) + 315360000 },
+      });
+      const toHex = (text) => "0x" + Array.from(new TextEncoder().encode(text), (b) => b.toString(16).padStart(2, "0")).join("");
+      const requests = {
+        wrap: () => ({ method: "eth_sendTransaction", params: [{ from: account, to: WMON, value: "0x2386f26fc10000", data: "0xd0e30db0" }] }),
+        approve: () => ({ method: "eth_sendTransaction", params: [{ from: account, to: USDC, data: "0x095ea7b3" + DEAD.slice(2).toLowerCase().padStart(64, "0") + MAX }] }),
+        permit2: () => ({ method: "eth_signTypedData_v4", params: [account, permit(143)] }),
+        wrongchain: () => ({ method: "eth_signTypedData_v4", params: [account, permit(1)] }),
+        login: () => ({ method: "personal_sign", params: [toHex(`${location.host} wants you to sign in with your Ethereum account:\n${account}\n\nSign in to the PlainSign Monad lab.\n\nURI: ${location.origin}\nVersion: 1\nChain ID: 143\nNonce: monad${Date.now()}\nIssued At: ${new Date().toISOString()}`), account] }),
+        hash: () => ({ method: "personal_sign", params: ["0x" + "7a".repeat(32), account] }),
+      };
+      $("connect").onclick = () => connect().catch((e) => log(`Connect failed: ${e.message}`));
+      $("switch").onclick = () => switchToMonad().catch((e) => log(`Switch failed: ${e.message}`));
+      document.querySelectorAll("button.req").forEach((button) => {
+        button.onclick = async () => {
+          if (!account) await connect();
+          const name = button.querySelector("strong").textContent;
+          try {
+            const result = await eth().request(requests[button.dataset.req]());
+            log(`${name}: wallet returned ${String(result).slice(0, 18)}…`);
+          } catch (error) {
+            log(`${name}: rejected (${error?.code ?? "error"}) ${error?.code === 4001 ? "– the wallet never saw it" : error?.message ?? ""}`);
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

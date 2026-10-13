@@ -1,6 +1,6 @@
 {
   "name": "plainsign",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "description": "Plain-English safety checks for Ethereum wallet signing requests.",
   "type": "module",
@@ -13,6 +13,7 @@
     "fixtures:generate": "tsx tests/fixtures/generate.ts",
     "verify:free-mint": "tsx scripts/verify-free-mint.ts",
     "verify:mainnet": "tsx scripts/verify-mainnet.ts",
+    "verify:monad": "tsx scripts/verify-monad.ts",
     "verify:alchemy-simulation": "tsx scripts/verify-alchemy-simulation.ts",
     "test:e2e": "cross-env VITE_E2E=1 VITE_LLM_KEY=plainsign-e2e VITE_E2E_MOCK_LLM=1 npm run build && playwright test",
     "test:e2e:sepolia": "node scripts/test-sepolia-e2e.js",

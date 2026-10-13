@@ -128,7 +128,7 @@ export function OptionsApp() {
               <strong>Enable simulation</strong>
               <small>
                 {alchemyAvailable
-                  ? "Preview expected balance changes on Sepolia."
+                  ? "Preview expected balance changes on Sepolia. On Monad, PlainSign decodes and scores requests without a balance preview."
                   : "Unavailable in this build because no Alchemy key is configured."}
               </small>
             </span>

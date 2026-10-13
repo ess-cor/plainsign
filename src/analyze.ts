@@ -1,3 +1,4 @@
+import { networkInfo } from "./config/network";
 import { decode } from "./decoder";
 import { collectAddresses, enrich } from "./enrich";
 import { explain } from "./explain";
@@ -122,6 +123,7 @@ export async function analyze(
       explanation,
       durationMs,
       timings,
+      network: networkInfo(request.chainId),
     };
   })();
 
@@ -195,6 +197,7 @@ export function createDegradedResult(
     explanation,
     durationMs,
     degraded: errorMessage(error) ?? "Analysis failed.",
+    network: networkInfo(request.chainId),
   };
 }
 
@@ -246,3 +249,5 @@ function errorMessage(error: unknown): string | undefined {
   if (error === undefined) return undefined;
   return error instanceof Error ? error.message : String(error);
 }
+
+export { networkInfo };

@@ -106,6 +106,22 @@ export const isTargetAllowlistedAndDomainOk: Signal = (context) => {
   );
 };
 
+/**
+ * A typed-data signature names the chain it is valid on. When that chain is
+ * not the network the wallet is connected to (for example a Permit2 approval
+ * for Ethereum requested while the wallet is on Monad), the site is asking for
+ * a permission the user cannot see in context. Permit2, Seaport and many
+ * tokens share addresses across chains, so the contract alone looks familiar.
+ */
+export const isTypedDataChainMismatch: Signal = ({ intent, request }) => {
+  const domainChain = intent.domain?.chainId;
+  return (
+    domainChain !== undefined &&
+    request.chainId > 0 &&
+    domainChain !== request.chainId
+  );
+};
+
 export const signalRegistry: Record<string, Signal> = {
   isEthSign,
   isPersonalSignHexHash,
@@ -123,6 +139,7 @@ export const signalRegistry: Record<string, Signal> = {
   didSimulationRevert,
   isUnknownFunction,
   isTargetAllowlistedAndDomainOk,
+  isTypedDataChainMismatch,
 };
 
 function targetInfos(context: RiskContext): AddressInfo[] {

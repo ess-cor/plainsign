@@ -3,7 +3,7 @@ import seedDocument from "../../docs/denylist.json";
 import { fetchWithTimeout } from "../lib/fetchWithTimeout";
 
 export const COMMUNITY_DENYLIST_URL =
-  "https://adib-cyber007.github.io/plainsign/denylist.json";
+  "https://ess-cor.github.io/plainsign/denylist.json";
 const CACHE_TTL_MS = 5 * 60 * 1_000;
 const ADDRESS_PATTERN = /^0x[0-9a-fA-F]{40}$/;
 

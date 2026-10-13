@@ -2,7 +2,7 @@ name: Deploy demo to GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -37,6 +37,10 @@ jobs:
           VITE_SEPOLIA_RPC: https://ethereum-sepolia-rpc.publicnode.com
       - name: Publish community denylist
         run: cp docs/denylist.json demo-dapp/dist/denylist.json
+      - name: Build and publish the Chrome extension (unpacked zip)
+        run: |
+          npm run build
+          (cd .output/chrome-mv3 && zip -qr ../../demo-dapp/dist/plainsign-extension.zip .)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: demo-dapp/dist
