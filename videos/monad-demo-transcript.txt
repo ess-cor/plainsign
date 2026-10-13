@@ -1,0 +1,27 @@
+PlainSign on Monad: technical demo (synthetic narration)
+
+This is PlainSign running as a Chrome extension, on Monad mainnet, chain one forty three. The page is our Monad request lab. Every button sends a real wallet request against real Monad contracts.
+
+We connect an automated test wallet on Monad. PlainSign is active, and it now sits between the page and the wallet.
+
+First, wrap point zero one MON. PlainSign pauses the request before the wallet opens, recognises the canonical W MON contract on Monad, and explains it in MON. Safe.
+
+Continue forwards the original request to the wallet, unchanged.
+
+Now an unlimited USDC approval. PlainSign checks the spender live on Monad, finds no contract code there, and says it plainly: a personal wallet could take all of your USDC, forever. Danger.
+
+Reject returns error four zero zero one. The wallet never sees the request.
+
+A fake verify wallet button asks for a Permit2 signature. No gas, no transaction, but it grants an unlimited permission for ten years. PlainSign decodes the typed data and flags it.
+
+New for Monad: this permit's signature domain says Ethereum, while the wallet is on Monad. Cross chain signatures are a common phishing pattern, so PlainSign adds a different network warning naming both chains, and the score climbs to seventy.
+
+The technical view shows the network, the decoded fields, and every rule that fired. The rules are an open JSON file anyone can audit.
+
+A normal sign in message for chain one forty three is readable, and gets a calm explanation.
+
+But a blind thirty two byte hash could authorise anything, so it is Danger.
+
+Judges can try the same decoder and rules without a wallet. The walkthrough defaults to Monad. A contract imitating W MON gets caution instead of the friendly wrap explanation.
+
+And a read only script checks Monad mainnet itself: chain one forty three, bytecode at every known Monad contract, and live verdicts. PlainSign. See what you are really signing, on Monad.

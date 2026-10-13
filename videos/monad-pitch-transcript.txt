@@ -1,0 +1,15 @@
+PlainSign on Monad: pitch (synthetic narration)
+
+Hi, I'm Mohamed Adib, a computer science student at S V C E in Chennai, building solo. This is PlainSign, for Monad.
+
+Monad makes transactions fast and cheap. That's great for users, and just as great for drainers. A button says free mint, or verify wallet, while the wallet is asked for an unlimited approval or a Permit2 signature that never expires. The wallet shows hex. People click confirm.
+
+PlainSign is an open source browser extension. It pauses the request before the wallet opens, decodes it, checks the addresses on Monad, and gives a plain English verdict: safe, caution, or danger. Reject, and the wallet never sees it.
+
+On Monad, it speaks MON, knows Monad's canonical contracts like W MON, USDC, Permit2, Uniswap, Kuru and PancakeSwap, checks spenders live on chain, and flags signatures meant for a different chain than your wallet's.
+
+No backend, no account, no telemetry, and an open rule file anyone can audit. Two hundred sixteen tests, and a read only script that verifies Monad mainnet.
+
+First users are Monad's early adopters, the people farming new apps and airdrops that drainers target. I'll reach them through the Chrome Web Store, Monad communities and campus Web3 clubs in India, and offer the verdict engine to Monad wallets and dApps as an SDK.
+
+Trust is infrastructure. PlainSign helps every Monad user see what they're really signing. Thank you.
