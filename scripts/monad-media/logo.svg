@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b88ff"/><stop offset="1" stop-color="#5b3fe0"/></linearGradient></defs>
+  <rect width="1000" height="1000" rx="160" fill="#0a0e17"/>
+  <path d="M500 140 L760 240 L760 470 C760 640 650 760 500 820 C350 760 240 640 240 470 L240 240 Z" fill="url(#g)"/>
+  <path d="M380 480 L465 565 L630 395" fill="none" stroke="#ffffff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="500" y="925" text-anchor="middle" font-family="DejaVu Sans" font-weight="bold" font-size="92" fill="#ffffff">PlainSign</text>
+</svg>

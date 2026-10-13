@@ -1,0 +1,86 @@
+{
+ "demo": [
+  {
+   "scene": "intro",
+   "text": "This is PlainSign running as a Chrome extension, on Monad mainnet, chain one forty three. The page is our Monad request lab. Every button sends a real wallet request against real Monad contracts."
+  },
+  {
+   "scene": "connect",
+   "text": "We connect an automated test wallet on Monad. PlainSign is active, and it now sits between the page and the wallet."
+  },
+  {
+   "scene": "wrap",
+   "text": "First, wrap point zero one MON. PlainSign pauses the request before the wallet opens, recognises the canonical W MON contract on Monad, and explains it in MON. Safe."
+  },
+  {
+   "scene": "wrap-continue",
+   "text": "Continue forwards the original request to the wallet, unchanged."
+  },
+  {
+   "scene": "approve",
+   "text": "Now an unlimited USDC approval. PlainSign checks the spender live on Monad, finds no contract code there, and says it plainly: a personal wallet could take all of your USDC, forever. Danger."
+  },
+  {
+   "scene": "reject",
+   "text": "Reject returns error four zero zero one. The wallet never sees the request."
+  },
+  {
+   "scene": "permit2",
+   "text": "A fake verify wallet button asks for a Permit2 signature. No gas, no transaction, but it grants an unlimited permission for ten years. PlainSign decodes the typed data and flags it."
+  },
+  {
+   "scene": "wrongchain",
+   "text": "New for Monad: this permit's signature domain says Ethereum, while the wallet is on Monad. Cross chain signatures are a common phishing pattern, so PlainSign adds a different network warning naming both chains, and the score climbs to seventy."
+  },
+  {
+   "scene": "technical",
+   "text": "The technical view shows the network, the decoded fields, and every rule that fired. The rules are an open JSON file anyone can audit."
+  },
+  {
+   "scene": "login",
+   "text": "A normal sign in message for chain one forty three is readable, and gets a calm explanation."
+  },
+  {
+   "scene": "hash",
+   "text": "But a blind thirty two byte hash could authorise anything, so it is Danger."
+  },
+  {
+   "scene": "review",
+   "text": "Judges can try the same decoder and rules without a wallet. The walkthrough defaults to Monad. A contract imitating W MON gets caution instead of the friendly wrap explanation."
+  },
+  {
+   "scene": "evidence",
+   "text": "And a read only script checks Monad mainnet itself: chain one forty three, bytecode at every known Monad contract, and live verdicts. PlainSign. See what you are really signing, on Monad."
+  }
+ ],
+ "pitch": [
+  {
+   "slide": 1,
+   "text": "Hi, I'm Mohamed Adib, a computer science student at S V C E in Chennai, building solo. This is PlainSign, for Monad."
+  },
+  {
+   "slide": 2,
+   "text": "Monad makes transactions fast and cheap. That's great for users, and just as great for drainers. A button says free mint, or verify wallet, while the wallet is asked for an unlimited approval or a Permit2 signature that never expires. The wallet shows hex. People click confirm."
+  },
+  {
+   "slide": 3,
+   "text": "PlainSign is an open source browser extension. It pauses the request before the wallet opens, decodes it, checks the addresses on Monad, and gives a plain English verdict: safe, caution, or danger. Reject, and the wallet never sees it."
+  },
+  {
+   "slide": 4,
+   "text": "On Monad, it speaks MON, knows Monad's canonical contracts like W MON, USDC, Permit2, Uniswap, Kuru and PancakeSwap, checks spenders live on chain, and flags signatures meant for a different chain than your wallet's."
+  },
+  {
+   "slide": 5,
+   "text": "No backend, no account, no telemetry, and an open rule file anyone can audit. Two hundred sixteen tests, and a read only script that verifies Monad mainnet."
+  },
+  {
+   "slide": 6,
+   "text": "First users are Monad's early adopters, the people farming new apps and airdrops that drainers target. I'll reach them through the Chrome Web Store, Monad communities and campus Web3 clubs in India, and offer the verdict engine to Monad wallets and dApps as an SDK."
+  },
+  {
+   "slide": 7,
+   "text": "Trust is infrastructure. PlainSign helps every Monad user see what they're really signing. Thank you."
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}body{margin:0;width:1920px;height:1080px;background:#0a0e17;color:#eef1f8;font-family:"DejaVu Sans",sans-serif;overflow:hidden}
+.s{display:none;width:1920px;height:1080px;padding:110px 130px;position:relative}
+.s.on{display:flex;flex-direction:column;justify-content:center}
+h1{font-size:96px;letter-spacing:-2px;margin:0 0 30px;line-height:1.05}h2{font-size:64px;margin:0 0 40px;letter-spacing:-1px}
+p,li{font-size:38px;line-height:1.45;color:#c3cadb}ul{margin:0;padding-left:44px}li{margin:10px 0}
+.k{color:#a796ff}.tag{position:absolute;top:60px;left:130px;font-size:26px;color:#8d97ad;letter-spacing:2px}
+.foot{position:absolute;bottom:56px;left:130px;right:130px;display:flex;justify-content:space-between;font-size:24px;color:#6f7a92}
+.row{display:flex;gap:70px;align-items:center}.row img.shot{width:900px;border-radius:18px;border:2px solid #263150}
+.logo{width:260px;height:260px}.v{display:flex;gap:28px;margin-top:20px}.b{padding:18px 34px;border-radius:14px;font-size:40px;font-weight:bold}
+.safe{background:#0f5132}.caution{background:#664400}.danger{background:#6b1d2a}
+</style></head><body>
+<section class="s" id="s1"><div class="row"><img class="logo" src="logo.png"><div><h1>PlainSign<br><span class="k">on Monad</span></h1><p>See what you're really signing.</p><p>Mohamed Adib · solo · CS student, SVCE Chennai</p></div></div></section>
+<section class="s" id="s2"><div class="tag">THE PROBLEM</div><h2>Fast, cheap chains are fast and cheap for drainers too</h2><ul><li>“Free Mint” → unlimited approval of every NFT</li><li>“Verify wallet” → Permit2 signature valid for years</li><li>The wallet shows hex and addresses. People click Confirm.</li></ul></section>
+<section class="s" id="s3"><div class="tag">THE PRODUCT</div><div class="row"><div style="flex:1"><h2>A checkpoint before the wallet opens</h2><p>Open-source Chrome extension. Decodes the request, checks addresses on Monad, applies open rules.</p><div class="v"><span class="b safe">Safe</span><span class="b caution">Caution</span><span class="b danger">Danger</span></div></div><img class="shot" src="scene-approve.png"></div></section>
+<section class="s" id="s4"><div class="tag">BUILT FOR MONAD · CHAIN 143</div><div class="row"><div style="flex:1"><ul><li>Explains in <span class="k">MON</span> / WMON</li><li>Knows Monad's canonical contracts: WMON, USDC, USDT0, Permit2, Uniswap, Kuru, PancakeSwap</li><li>Live spender checks on Monad RPC</li><li>New rule: signatures for a different chain</li></ul></div><img class="shot" src="scene-wrongchain.png"></div></section>
+<section class="s" id="s5"><div class="tag">TRUST BY DESIGN</div><h2>Open, local, verifiable</h2><ul><li>No backend, no account, no telemetry</li><li>Risk rules are an open JSON file</li><li>216 automated tests, including a Monad suite</li><li>Read-only script verifies Monad mainnet contracts</li></ul></section>
+<section class="s" id="s6"><div class="tag">GO-TO-MARKET</div><h2>Start where drainers hunt</h2><ul><li>First users: Monad early adopters minting, farming, claiming airdrops</li><li>Chrome Web Store + free download</li><li>Monad communities and campus Web3 clubs in India</li><li>SDK / API for Monad wallets and dApps</li></ul></section>
+<section class="s" id="s7"><div class="row"><img class="logo" src="logo.png"><div><h1>Trust is<br><span class="k">infrastructure.</span></h1><p>github.com/ess-cor/plainsign</p><p>ess-cor.github.io/plainsign</p></div></div></section>
+<div class="foot"><span>PlainSign · Monad Metropolis · Trust, Identity &amp; AI Infrastructure</span><span>Synthetic narration</span></div>
+<script>const n=new URLSearchParams(location.search).get("n")||"1";document.getElementById("s"+n).classList.add("on");</script>
+</body></html>

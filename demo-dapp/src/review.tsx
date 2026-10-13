@@ -92,8 +92,8 @@ function Review() {
   const { request, result, revoke } = useMemo(() => sampleResult(sample, chain), [sample, chain]);
   return <main className="review-shell">
     <header className="review-header"><a href="review.html">PlainSign</a><nav aria-label="Project resources">
-      <a href="product-demo.html">Watch the demo</a>
-      <a href="plainsign-pitch.pdf">Pitch deck</a>
+      <a href="monad-demo.html">Watch the Monad demo</a>
+      <a href="monad-pitch.html">Pitch</a><a href="monad-lab.html">Monad request lab</a>
       <a href="https://github.com/ess-cor/plainsign">View the code</a>
     </nav></header>
     <div className="review-intro"><h1>See what you’re<br />really signing.</h1><p>Try a request. Read the consequence.<br />Decide before your wallet opens.</p></div>
