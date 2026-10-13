@@ -1,4 +1,4 @@
-PlainSign on Monad: technical demo (synthetic narration)
+PlainSign on Monad: technical demo (narration: AI clone of Mohamed Adib’s voice, XTTS v2, with permission)
 
 This is PlainSign running as a Chrome extension, on Monad mainnet, chain one forty three. The page is our Monad request lab. Every button sends a real wallet request against real Monad contracts.
 

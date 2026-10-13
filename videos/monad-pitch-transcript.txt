@@ -1,4 +1,4 @@
-PlainSign on Monad: pitch (synthetic narration)
+PlainSign on Monad: pitch (narration: AI clone of Mohamed Adib’s voice, XTTS v2, with permission)
 
 Hi, I'm Mohamed Adib, a computer science student at S V C E in Chennai, building solo. This is PlainSign, for Monad.
 
