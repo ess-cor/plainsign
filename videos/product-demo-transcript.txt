@@ -1,0 +1,35 @@
+PlainSign product demo
+Narration: AI-generated clone of Mohamed Adib's voice, used with his permission.
+
+00:00:00.203 — Controlled demo
+This is PlainSign running in a controlled test. The extension is real; the wallet is automated and the chain metadata is simulated. No real assets move. CatDrop is a security-training page with deliberately risky examples.
+
+00:00:15.260 — Connect
+I connect the disposable test account. The notice makes clear that this is a fictional offer. Each supported request passes through PlainSign before it can reach the wallet.
+
+00:00:26.204 — Free Mint
+Free Mint actually requests permission to move every NFT in this collection. PlainSign marks the request as dangerous. It shows the address that would get access. The reasons explain why permission over the whole collection is risky. This is the permission the button's label hides.
+
+00:00:43.919 — Reject
+I choose Reject. The page reports error four zero zero one. The test wallet receives no signing or transaction request for this action. That lets me stop before forwarding the permission.
+
+00:00:57.009 — Permit2
+Now, Sign to verify wallet. This is a Permit2 signature with an unlimited amount and a long expiry. PlainSign flags the permission and shows Danger. There is no gas fee for signing, but the signature can still allow assets to move later. I reject it.
+
+00:01:14.751 — Sign in
+The sign-in example gets a different explanation. The decoded message is a login rather than an asset permission. It receives Safe under these rules. That verdict does not tell us that the website itself is trustworthy.
+
+00:01:28.684 — Wrap ETH
+The wrapped Ether deposit explains the exchange of Ether for wrapped Ether. This controlled example also receives Safe. I reject the request here, so no transaction is sent. Optional simulation supports Sepolia only.
+
+00:01:43.251 — Try it yourself
+Judges can compare these requests in the sample walkthrough without a wallet or extension. It uses the same decoder and rules, with simulated metadata clearly labelled. The repository includes the development history and the work added during this event.
+
+00:01:58.593 — New in 0.2.1: imitation WETH
+Here is the new comparison. A registered wrapped Ether destination gets the wrap explanation. The same call sent to an imitation contract gets Caution. Inspect this sample request shows the exact input. The destination matters as much as the function name.
+
+00:02:15.141 — New in 0.2.1: possible hash signing
+Now the real extension checks a thirty two byte message. It shows Danger even though the bytes can be read as text. A short payload like this may be a hash. PlainSign warns instead of calling it a normal sign in.
+
+00:02:29.076 — Reject and inspect the update
+I reject this request. The test wallet receives nothing. Judges can try the six examples and inspect the open rules. The latest release is version zero point two point one.

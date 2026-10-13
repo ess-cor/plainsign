@@ -1,0 +1,26 @@
+PlainSign presentation
+Narration: AI-generated clone of Mohamed Adib's voice, used with his permission.
+
+00:00:00.000 — The Free Mint problem
+The website says, Free Mint. But the request underneath can give someone permission to move every NFT in a collection. I'm Mohamed Adib, a student at Sri Venkateswara College of Engineering. This is PlainSign: a way to understand that permission before approving it.
+
+00:00:16.520 — Before the wallet opens
+Here is the permission in this test example. PlainSign pauses the request and shows the address that would get access. It explains why that permission is dangerous. If I choose Reject, it returns the wallet's standard rejection error. The request never reaches the wallet. The Continue button forwards the original request unchanged. The separate demo shows that interception working.
+
+00:00:40.740 — Signatures matter too
+A signature with no gas fee still deserves attention. This Permit2 example grants an unlimited token permission for a long time. A normal sign-in message has a different meaning. PlainSign decodes both and shows the difference. Green means no major warning signs were found under the rules; it is not a guarantee of safety.
+
+00:01:01.240 — Open rules, visible reasons
+The decision comes from open rules. We decode the transaction or signature, add public chain information, and explain the rules that fired. This public version does not use AI to write the explanation. It has no backend account or telemetry. These are inspectable heuristics, and provider interception is best effort.
+
+00:01:21.460 — Work completed for the event
+The September prototype came before this competition, and that history is disclosed. The October work adds public contract data from the main Ethereum network. It keeps warnings about known malicious addresses visible during an RPC outage. It also gives judges a walkthrough they can try without a wallet. The walkthrough uses simulated metadata. Mainnet validation uses public reads, not real asset transactions.
+
+00:01:46.877 — The business hypothesis
+For individuals, the extension and rules stay free and open source. The proposed business is a software package that wallets and apps can add to their products. It would include maintained rules, policy controls, and support. I still need to test demand and pricing. I am not claiming customers or revenue today.
+
+00:02:06.257 — The next proof
+The next test is simple: watch five people use the demo. Can they explain the permission before deciding? Where do warnings confuse them? How long does the decision take? Then I want to find two wallet or app teams for a small integration pilot. Those are planned experiments, not current traction.
+
+00:02:25.817 — PlainSign
+The goal is to help people make a clear decision at the moment it matters. You can try the sample requests without installing a wallet, and inspect the code and rules in the repository. My next milestones are independent security review and observed user tests. PlainSign helps people understand the permission, then decide.

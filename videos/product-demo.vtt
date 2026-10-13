@@ -1,0 +1,152 @@
+WEBVTT
+
+00:00:00.203 --> 00:00:04.323
+This is PlainSign running in a controlled
+test. The extension is real;
+
+00:00:04.743 --> 00:00:08.983
+the wallet is automated and the chain
+metadata is simulated. No real
+
+00:00:08.983 --> 00:00:13.483
+assets move. CatDrop is a security-training
+page with deliberately risky
+
+00:00:13.483 --> 00:00:14.063
+examples.
+
+00:00:15.260 --> 00:00:19.700
+I connect the disposable test account. The
+notice makes clear that this is a
+
+00:00:19.700 --> 00:00:24.000
+fictional offer. Each supported request
+passes through PlainSign before
+
+00:00:24.000 --> 00:00:25.080
+it can reach the wallet.
+
+00:00:26.204 --> 00:00:30.084
+Free Mint actually requests permission to
+move every NFT in this collection.
+
+00:00:30.084 --> 00:00:34.424
+PlainSign marks the request as dangerous. It
+shows the
+
+00:00:34.424 --> 00:00:38.664
+address that would get access. The reasons
+explain why permission over the
+
+00:00:38.664 --> 00:00:42.764
+whole collection is risky. This is the
+permission the button's label hides.
+
+00:00:43.919 --> 00:00:47.979
+I choose Reject. The page reports error four
+zero
+
+00:00:47.979 --> 00:00:52.459
+zero one. The test wallet receives no
+signing or transaction request for
+
+00:00:52.459 --> 00:00:55.919
+this action. That lets me stop before
+forwarding the permission.
+
+00:00:57.009 --> 00:01:01.289
+Now, Sign to verify wallet. This is a
+Permit2 signature with an
+
+00:01:01.289 --> 00:01:05.629
+unlimited amount and a long expiry.
+PlainSign flags the permission
+
+00:01:05.629 --> 00:01:09.929
+and shows Danger. There is no gas fee for
+signing, but the signature
+
+00:01:09.929 --> 00:01:13.949
+can still allow assets to move later. I
+reject it.
+
+00:01:14.751 --> 00:01:18.951
+The sign-in example gets a different
+explanation. The decoded message
+
+00:01:18.951 --> 00:01:23.411
+is a login rather than an asset permission.
+It receives Safe under these
+
+00:01:23.411 --> 00:01:27.571
+rules. That verdict does not tell us that
+the website itself is trustworthy.
+
+00:01:28.684 --> 00:01:32.344
+The wrapped Ether deposit explains the
+exchange of Ether for wrapped
+
+00:01:32.344 --> 00:01:36.644
+Ether. This controlled example also receives
+Safe. I reject
+
+00:01:36.644 --> 00:01:40.704
+the request here, so no transaction is sent.
+Optional simulation
+
+00:01:40.704 --> 00:01:42.284
+supports Sepolia only.
+
+00:01:43.251 --> 00:01:47.051
+Judges can compare these requests in the
+sample walkthrough without a wallet
+
+00:01:47.051 --> 00:01:51.431
+or extension. It uses the same decoder and
+rules, with simulated
+
+00:01:51.431 --> 00:01:55.771
+metadata clearly labelled. The repository
+includes the development history
+
+00:01:55.771 --> 00:01:57.671
+and the work added during this event.
+
+00:01:58.593 --> 00:02:03.093
+Here is the new comparison. A registered
+wrapped Ether destination gets the
+
+00:02:03.093 --> 00:02:07.213
+wrap explanation. The same call sent to an
+imitation contract gets
+
+00:02:07.213 --> 00:02:11.673
+Caution. Inspect this sample request shows
+the exact input. The
+
+00:02:11.673 --> 00:02:14.173
+destination matters as much as the function
+name.
+
+00:02:15.141 --> 00:02:19.421
+Now the real extension checks a thirty two
+byte message. It shows Danger
+
+00:02:19.421 --> 00:02:23.721
+even though the bytes can be read as text. A
+short payload like this may
+
+00:02:23.721 --> 00:02:28.101
+be a hash. PlainSign warns instead of
+calling it a normal sign in.
+
+00:02:29.076 --> 00:02:33.176
+I reject this request. The test wallet
+receives nothing.
+
+00:02:33.636 --> 00:02:37.876
+Judges can try the six examples and inspect
+the open rules. The latest
+
+00:02:37.876 --> 00:02:40.836
+release is version zero point two point one.

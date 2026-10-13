@@ -1,0 +1,159 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.140
+The website says, Free Mint. But the request
+underneath can give someone
+
+00:00:04.140 --> 00:00:08.500
+permission to move every NFT in a
+collection. I'm Mohamed Adib, a
+
+00:00:08.500 --> 00:00:12.940
+student at Sri Venkateswara College of
+Engineering. This is PlainSign: a
+
+00:00:12.940 --> 00:00:15.680
+way to understand that permission before
+approving it.
+
+00:00:16.520 --> 00:00:20.720
+Here is the permission in this test example.
+PlainSign pauses the request
+
+00:00:20.720 --> 00:00:25.080
+and shows the address that would get access.
+It explains why that
+
+00:00:25.080 --> 00:00:29.240
+permission is dangerous. If I choose Reject,
+it returns the wallet's
+
+00:00:29.240 --> 00:00:33.640
+standard rejection error. The request never
+reaches the wallet. The
+
+00:00:33.640 --> 00:00:37.940
+Continue button forwards the original
+request unchanged. The separate demo
+
+00:00:37.940 --> 00:00:39.680
+shows that interception working.
+
+00:00:40.740 --> 00:00:45.000
+A signature with no gas fee still deserves
+attention. This Permit2
+
+00:00:45.000 --> 00:00:49.240
+example grants an unlimited token permission
+for a long time. A normal
+
+00:00:49.240 --> 00:00:53.500
+sign-in message has a different meaning.
+PlainSign decodes both and shows
+
+00:00:53.500 --> 00:00:57.560
+the difference. Green means no major warning
+signs were found under the
+
+00:00:57.560 --> 00:01:00.180
+rules; it is not a guarantee of safety.
+
+00:01:01.240 --> 00:01:05.400
+The decision comes from open rules. We
+decode the transaction or
+
+00:01:05.400 --> 00:01:09.260
+signature, add public chain information, and
+explain the rules that fired.
+
+00:01:09.940 --> 00:01:14.260
+This public version does not use AI to write
+the explanation. It has no
+
+00:01:14.260 --> 00:01:18.740
+backend account or telemetry. These are
+inspectable heuristics, and provider
+
+00:01:18.740 --> 00:01:20.520
+interception is best effort.
+
+00:01:21.460 --> 00:01:25.160
+The September prototype came before this
+competition, and that history is
+
+00:01:25.160 --> 00:01:29.420
+disclosed. The October work adds public
+contract data from the main Ethereum
+
+00:01:29.420 --> 00:01:33.900
+network. It keeps warnings about known
+malicious addresses visible during an
+
+00:01:33.900 --> 00:01:38.220
+RPC outage. It also gives judges a
+walkthrough they can try without a
+
+00:01:38.220 --> 00:01:42.580
+wallet. The walkthrough uses simulated
+metadata. Mainnet validation
+
+00:01:42.580 --> 00:01:45.660
+uses public reads, not real asset
+transactions.
+
+00:01:46.877 --> 00:01:50.877
+For individuals, the extension and rules
+stay free and open source.
+
+00:01:51.557 --> 00:01:55.037
+The proposed business is a software package
+that wallets and apps can add to
+
+00:01:55.037 --> 00:01:59.237
+their products. It would include maintained
+rules, policy controls, and
+
+00:01:59.237 --> 00:02:03.637
+support. I still need to test demand and
+pricing. I am not claiming
+
+00:02:03.637 --> 00:02:05.177
+customers or revenue today.
+
+00:02:06.257 --> 00:02:10.677
+The next test is simple: watch five people
+use the demo. Can they
+
+00:02:10.677 --> 00:02:14.757
+explain the permission before deciding?
+Where do warnings confuse them?
+
+00:02:15.057 --> 00:02:19.357
+How long does the decision take? Then I want
+to find two wallet or
+
+00:02:19.357 --> 00:02:23.437
+app teams for a small integration pilot.
+Those are planned experiments,
+
+00:02:23.437 --> 00:02:24.697
+not current traction.
+
+00:02:25.817 --> 00:02:29.437
+The goal is to help people make a clear
+decision at the moment it matters.
+
+00:02:30.117 --> 00:02:33.457
+You can try the sample requests without
+installing a wallet, and inspect the
+
+00:02:33.457 --> 00:02:37.317
+code and rules in the repository. My next
+milestones are independent
+
+00:02:37.317 --> 00:02:41.657
+security review and observed user tests.
+PlainSign helps people
+
+00:02:41.657 --> 00:02:43.677
+understand the permission, then decide.

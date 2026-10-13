@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-12",
+  "allow": [],
+  "deny": [
+    {
+      "address": "0x3B497AE93753967D3eA96cf04a517C3da0e66003",
+      "label": "PlainSign demo attacker",
+      "chains": [31337, 11155111],
+      "source": "PlainSign demo seed"
+    }
+  ]
+}

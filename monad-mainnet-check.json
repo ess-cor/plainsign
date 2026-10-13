@@ -1,0 +1,137 @@
+{
+  "checkedAt": "2026-10-13T13:08:53.363Z",
+  "network": "Monad mainnet",
+  "chainId": 143,
+  "readOnly": true,
+  "rpcChecks": [
+    {
+      "rpc": "https://rpc.monad.xyz",
+      "ok": true,
+      "chainId": 143,
+      "blockNumber": "113048938"
+    }
+  ],
+  "wmonSymbol": "WMON",
+  "contracts": [
+    {
+      "address": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+      "label": "Uniswap Permit2",
+      "isContract": true,
+      "bytecodeBytes": 9152
+    },
+    {
+      "address": "0x3bd359c1119da7da1d913d1c4d2b7c461115433a",
+      "label": "Wrapped MON (WMON)",
+      "isContract": true,
+      "bytecodeBytes": 3249
+    },
+    {
+      "address": "0x754704bc059f8c67012fed69bc8a327a5aafb603",
+      "label": "USD Coin (USDC, Circle native)",
+      "isContract": true,
+      "bytecodeBytes": 1798
+    },
+    {
+      "address": "0xe7cd86e13ac4309349f30b3435a9d337750fc82d",
+      "label": "Tether USDT0 (LayerZero OFT)",
+      "isContract": true,
+      "bytecodeBytes": 2227
+    },
+    {
+      "address": "0xee8c0e9f1bffb4eb878d8f15f368a02a35481242",
+      "label": "Wrapped Ether (WETH, bridged)",
+      "isContract": true,
+      "bytecodeBytes": 177
+    },
+    {
+      "address": "0x0d97dc33264bfc1c226207428a79b26757fb9dc3",
+      "label": "Uniswap Universal Router",
+      "isContract": true,
+      "bytecodeBytes": 19499
+    },
+    {
+      "address": "0xfdf682f51fe81aa4898f0ae2163d8a55c127fbc7",
+      "label": "Uniswap Universal Router 2.1.1",
+      "isContract": true,
+      "bytecodeBytes": 24546
+    },
+    {
+      "address": "0xa6ce4f10d83dbddac17e68e1837ca9ce6a1b596e",
+      "label": "Uniswap Universal Router 2.1.2",
+      "isContract": true,
+      "bytecodeBytes": 24380
+    },
+    {
+      "address": "0xfe31f71c1b106eac32f1a19239c9a9a72ddfb900",
+      "label": "Uniswap SwapRouter02",
+      "isContract": true,
+      "bytecodeBytes": 24497
+    },
+    {
+      "address": "0x0000000000000068f116a894984e2db1123eb395",
+      "label": "OpenSea Seaport 1.6",
+      "isContract": true,
+      "bytecodeBytes": 23981
+    },
+    {
+      "address": "0xd651346d7c789536ebf06dc72ae3c8502cd695cc",
+      "label": "Kuru DEX Router",
+      "isContract": true,
+      "bytecodeBytes": 141
+    },
+    {
+      "address": "0x465d06d4521ae9ce724e0c182daad5d8a2ff7040",
+      "label": "Kuru Flow Router",
+      "isContract": true,
+      "bytecodeBytes": 6370
+    },
+    {
+      "address": "0x0d3a1be29e9ded63c7a5678b31e847d68f71ffa2",
+      "label": "Kuru Flow Router V2",
+      "isContract": true,
+      "bytecodeBytes": 6381
+    },
+    {
+      "address": "0x21114915ac6d5a2e156931e20b20b038ded0be7c",
+      "label": "PancakeSwap Smart Router",
+      "isContract": true,
+      "bytecodeBytes": 24275
+    },
+    {
+      "address": "0xca11bde05977b3631167028862be2a173976ca11",
+      "label": "Multicall3",
+      "isContract": true,
+      "bytecodeBytes": 3808
+    },
+    {
+      "address": "0x9999999999999999999999999999999999999999",
+      "label": "(unknown test address)",
+      "isContract": false,
+      "bytecodeBytes": 0
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "Wrap 1 MON into WMON",
+      "kind": "weth_wrap",
+      "verdict": "safe",
+      "score": 0,
+      "summary": "You'll turn 1 MON into the same amount of WMON.",
+      "reasons": [
+        "allowlisted_target"
+      ]
+    },
+    {
+      "label": "Unlimited USDC approval to unknown contract",
+      "kind": "erc20_approve",
+      "verdict": "danger",
+      "score": 30,
+      "summary": "This gives 0x9999…9999 — a personal wallet, not an app — permission to take all of your tokens, forever.",
+      "reasons": [
+        "unlimited_approval",
+        "spender_is_eoa",
+        "allowlisted_target"
+      ]
+    }
+  ]
+}
