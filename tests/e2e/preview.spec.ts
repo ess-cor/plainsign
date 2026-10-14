@@ -10,9 +10,12 @@ test("judges can compare real-rule sample verdicts without a wallet", async ({ p
   await expect(page.locator(".ps-verdict h1")).toHaveText("Danger");
   await page.getByRole("button", { name: "Sign in", exact: false }).click();
   await expect(page.locator(".ps-verdict h1")).toHaveText("Safe");
-  await page.getByRole("button", { name: "Wrap ETH", exact: false }).click();
+  // The preview opens on Monad mainnet, so the wrap sample is labelled in MON/WMON.
+  await page.getByRole("button", { name: "Wrap MON", exact: false }).click();
   await expect(page.locator(".ps-verdict h1")).toHaveText("Safe");
+  await expect(page.locator(".ps-network")).toContainText("chain 143");
   await page.getByLabel("Network", { exact: true }).selectOption("11155111");
+  await expect(page.getByRole("button", { name: "Wrap ETH", exact: false })).toBeVisible();
   await expect(page.locator(".ps-verdict h1")).toHaveText("Safe");
   await page.getByRole("button", { name: "Imitation WETH" }).click();
   await expect(page.locator(".ps-verdict h1")).toHaveText("Caution");
