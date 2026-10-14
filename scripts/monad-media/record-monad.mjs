@@ -1,8 +1,9 @@
+/* global document, window */
 // Records the Monad technical demo and the pitch video. Run from the plainsign dir:
 //   node ../media/record-monad.mjs   (after ../tools/setup-media.sh, on the same machine)
 import { spawnSync } from "node:child_process";
 import { createServer } from "node:http";
-import { mkdirSync, mkdtempSync, readFileSync, writeFileSync, copyFileSync, rmSync, readdirSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import path from "node:path";
 import { chromium } from "playwright";
 
@@ -18,7 +19,7 @@ const run = (cmd, args, opts = {}) => {
   return (r.stdout || "").trim();
 };
 const probe = (f) => Number(run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]));
-const tts = (text, file) => { try { if (readFileSync(file).length > 1000) return; } catch {} return run("python3", ["-m", "piper", "-m", path.join(media, "voices/en_US-ryan-high.onnx"), "-f", file, "--length-scale", "0.95", "--sentence-silence", "0.25"], { input: text }); };
+const tts = (text, file) => { try { if (readFileSync(file).length > 1000) return; } catch { /* not generated yet */ } return run("python3", ["-m", "piper", "-m", path.join(media, "voices/en_US-ryan-high.onnx"), "-f", file, "--length-scale", "0.95", "--sentence-silence", "0.25"], { input: text }); };
 const stamp = (v) => { const h = Math.floor(v / 3600), m = Math.floor((v % 3600) / 60), s = v % 60; return `${h}:${String(m).padStart(2, "0")}:${s.toFixed(2).padStart(5, "0")}`; };
 function ass(segments, label, total) {
   let out = `[Script Info]\nPlayResX: 1920\nPlayResY: 1080\nWrapStyle: 0\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Caption,DejaVu Sans,34,&H00FFFFFF,&H00FFFFFF,&H0009101C,&H9009101C,0,0,0,0,100,100,0,0,3,7,0,2,90,90,28,1\nStyle: Label,DejaVu Sans,24,&H00FFB8C9,&H00FFFFFF,&H0009101C,&H9009101C,0,0,0,0,100,100,0,0,3,5,0,7,24,24,16,1\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\nDialogue: 1,0:00:00.00,${stamp(total)},Label,,0,0,0,,${label}\n`;

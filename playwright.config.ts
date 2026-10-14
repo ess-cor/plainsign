@@ -11,7 +11,7 @@ export default defineConfig({
   expect: {
     timeout: 8_000,
   },
-  reporter: "line",
+  reporter: process.env.CI ? [["github"], ["line"]] : "line",
   use: {
     trace: "retain-on-failure",
   },
